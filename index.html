@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Конвертор на дължина</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        select,
+        input,
+        button {
+            margin: 10px;
+            padding: 10px;
+            width: calc(100% - 22px);
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Конвертор на мерни единици за дължина</h2>
+        <input type="number" id="inputValue" placeholder="Въведете стойност">
+        <select id="fromUnit">
+            <option value="km">Километри (km)</option>
+            <option value="m">Метри (m)</option>
+            <option value="cm">Сантиметри (cm)</option>
+            <option value="mm">Милиметри (mm)</option>
+            <option value="mile">Мили (mile)</option>
+            <option value="yard">Ярди (yard)</option>
+            <option value="foot">Футове (foot)</option>
+            <option value="inch">Инчове (inch)</option>
+        </select>
+        <select id="toUnit">
+            <option value="km">Километри (km)</option>
+            <option value="m">Метри (m)</option>
+            <option value="cm">Сантиметри (cm)</option>
+            <option value="mm">Милиметри (mm)</option>
+            <option value="mile">Мили (mile)</option>
+            <option value="yard">Ярди (yard)</option>
+            <option value="foot">Футове (foot)</option>
+            <option value="inch">Инчове (inch)</option>
+        </select>
+        <button id="convertButton" onclick="convert()">Конвертирай</button>
+        <h3 id="result"></h3>
+    </div>
+
+    <script>
+        function convert() {
+            const value = parseFloat(document.getElementById('inputValue').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+
+            const conversionRates = {
+                km: { km: 1, m: 1000, cm: 100000, mm: 1000000, mile: 0.621371, yard: 1093.61, foot: 3280.84, inch: 39370.1 },
+                m: { km: 0.001, m: 1, cm: 100, mm: 1000, mile: 0.000621371, yard: 1.09361, foot: 3.28084, inch: 39.3701 },
+                cm: { km: 0.00001, m: 0.01, cm: 1, mm: 10, mile: 0.0000062137, yard: 0.0109361, foot: 0.0328084, inch: 0.393701 },
+                mm: { km: 0.000001, m: 0.001, cm: 0.1, mm: 1, mile: 0.00000062137, yard: 0.00109361, foot: 0.00328084, inch: 0.0393701 },
+                mile: { km: 1.60934, m: 1609.34, cm: 160934, mm: 1609340, mile: 1, yard: 1760, foot: 5280, inch: 63360 },
+                yard: { km: 0.0009144, m: 0.9144, cm: 91.44, mm: 914.4, mile: 0.000568182, yard: 1, foot: 3, inch: 36 },
+                foot: { km: 0.0003048, m: 0.3048, cm: 30.48, mm: 304.8, mile: 0.000189394, yard: 0.333333, foot: 1, inch: 12 },
+                inch: { km: 0.0000254, m: 0.0254, cm: 2.54, mm: 25.4, mile: 0.0000157828, yard: 0.0277778, foot: 0.0833333, inch: 1 }
+            };
+
+            if (isNaN(value)) {
+                document.getElementById('result').innerText = "Моля, въведете число!";
+                return;
+            }
+
+            const convertedValue = value * conversionRates[fromUnit][toUnit];
+            document.getElementById('result').innerText = `Резултат: ${convertedValue.toFixed(4)} ${toUnit}`;
+        }
+    </script>
+</body>
+
+</html>
