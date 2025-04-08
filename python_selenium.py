@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 # Относителен път към HTML файла
-html_file_path = "index.html"  # Тук трябва да поставите името на вашия HTML файл
+html_file_path = "index.html"  
 
 # Настройка на опции за Chrome
 chrome_options = Options()
@@ -73,7 +73,7 @@ def convert_and_get_result(driver, from_unit, to_unit):
         conversion_factor = conversion_rates[from_unit][to_unit]
         converted_value = result_value * conversion_factor
 
-        # Ограничаваме до 4 десетични места или премахваме десетичните знаци, ако числото е цяло
+        # Ограничаваме до 5 десетични места или премахваме десетичните знаци, ако числото е цяло
         if converted_value.is_integer():
             converted_value = int(converted_value)
         else:
